@@ -34,4 +34,18 @@ class AlbumServiceTest {
         assertEquals("Test",resAlbum.getAlbumName());
     }
 
+    @Test
+    void getAlbumByAlbumName(){
+        //given
+        Album album=new Album();
+
+        //when
+        album.setAlbumName("album1");
+        Album saveAlbum=albumRepository.save(album);
+        Album resAlbum=albumService.getAlbumByAlbumName(saveAlbum.getAlbumName());
+
+        //then
+        Assertions.assertThat(resAlbum).isEqualTo(saveAlbum);
+    }
+
 }
