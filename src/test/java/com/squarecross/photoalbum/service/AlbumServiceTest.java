@@ -72,14 +72,17 @@ class AlbumServiceTest {
     void testPhotoCount(){
         //given
         Album album=new Album();
+        Photo photo1=new Photo();
+
+        //when
         album.setAlbumName("album1");
         Album saveAlbum=albumRepository.save(album);
 
-        Photo photo1=new Photo();
         photo1.setFileName("photo1");
         photo1.setAlbum(saveAlbum);
         photoRepository.save(photo1);
 
+        //then
         assertThat(photoRepository.countByAlbum_AlbumId(saveAlbum.getAlbumId()))
                 .isEqualTo(1);
 
