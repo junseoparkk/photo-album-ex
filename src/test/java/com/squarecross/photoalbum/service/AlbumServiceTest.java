@@ -1,6 +1,7 @@
 package com.squarecross.photoalbum.service;
 
 import com.squarecross.photoalbum.domain.Album;
+import com.squarecross.photoalbum.dto.AlbumDto;
 import com.squarecross.photoalbum.repository.AlbumRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -30,7 +31,7 @@ class AlbumServiceTest {
         //when
         album.setAlbumName("Test");
         Album saveAlbum=albumRepository.save(album);
-        Album resAlbum=albumService.getAlbum(saveAlbum.getAlbumId());
+        AlbumDto resAlbum=albumService.getAlbum(saveAlbum.getAlbumId());
 
         //then
         assertEquals("Test",resAlbum.getAlbumName());
