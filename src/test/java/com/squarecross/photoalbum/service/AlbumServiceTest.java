@@ -1,8 +1,10 @@
 package com.squarecross.photoalbum.service;
 
 import com.squarecross.photoalbum.domain.Album;
+import com.squarecross.photoalbum.domain.Photo;
 import com.squarecross.photoalbum.dto.AlbumDto;
 import com.squarecross.photoalbum.repository.AlbumRepository;
+import com.squarecross.photoalbum.repository.PhotoRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -22,6 +25,9 @@ class AlbumServiceTest {
 
     @Autowired
     AlbumService albumService;
+
+    @Autowired
+    PhotoRepository photoRepository;
 
     @Test
     void getAlbum(){
@@ -48,7 +54,7 @@ class AlbumServiceTest {
         Album resAlbum=albumService.getAlbumByAlbumName(saveAlbum.getAlbumName());
 
         //then
-        Assertions.assertThat(resAlbum).isEqualTo(saveAlbum);
+        assertThat(resAlbum).isEqualTo(saveAlbum);
     }
 
     @Test
@@ -60,6 +66,23 @@ class AlbumServiceTest {
         //then
         assertThrows(EntityNotFoundException.class,
                 ()->albumService.getAlbumByAlbumName("album"));
+    }
+
+    @Test
+    void testPhotoCount(){
+        //given
+        Album album=new Album();
+        album.setAlbumName("album1");
+        Album saveAlbum=albumRepository.save(album);
+
+        Photo photo1=new Photo();
+        photo1.setFileName("photo1");
+        photo1.setAlbum(saveAlbum);
+        photoRepository.save(photo1);
+
+        assertThat(photoRepository.countByAlbum_AlbumId(saveAlbum.getAlbumId()))
+                .isEqualTo(1);
+
     }
 
 }
