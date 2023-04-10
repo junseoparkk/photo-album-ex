@@ -28,7 +28,7 @@ public class AlbumService {
         if(res.isPresent()){
             return res.get();
         }else{
-            throw new EntityNotFoundException(String.format("앨범 아이디 %d로 조회되지 않았습니다.",albumName));
+            throw new EntityNotFoundException();
         }
     }
 }
