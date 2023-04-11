@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -113,6 +114,24 @@ class AlbumServiceTest {
         assertEquals("aaaa", resName.get(0).getAlbumName()); // 0번째 Index가 두번째 앨범명 aaaa 인지 체크
         assertEquals("aaab", resName.get(1).getAlbumName()); // 1번째 Index가 두번째 앨범명 aaab 인지 체크
         assertEquals(2, resName.size()); // aaa 이름을 가진 다른 앨범이 없다는 가정하에, 검색 키워드에 해당하는 앨범 필터링 체크
+    }
+
+    @Test
+    void testChangeAlbumName()throws IOException{
+        //given
+        AlbumDto albumDto=new AlbumDto();
+        albumDto.setAlbumName("변경 전");
+        AlbumDto res=albumService.createAlbum(albumDto);
+
+        Long albumId=res.getAlbumId();
+        AlbumDto updateDto=new AlbumDto();
+        updateDto.setAlbumName("변경 후");
+        albumService.changeName(albumId,updateDto);
+
+        AlbumDto updatedDto=albumService.getAlbum(albumId);
+
+        //then
+        assertEquals("변경 후",updatedDto.getAlbumName());
     }
 
 }
