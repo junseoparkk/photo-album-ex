@@ -49,7 +49,7 @@ public class AlbumController {
         return new ResponseEntity<>(albumDtos,HttpStatus.OK);
     }
 
-    @PutMapping(value="/{albumId")
+    @PutMapping(value="/{albumId}")
     public ResponseEntity<AlbumDto>updateAlbum(@PathVariable("albumId")final long albumId,
                                                @RequestBody final AlbumDto albumDto){
         AlbumDto res=albumService.changeName(albumId,albumDto);
