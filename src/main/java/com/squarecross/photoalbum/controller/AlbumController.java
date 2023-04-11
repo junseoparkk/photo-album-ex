@@ -47,6 +47,12 @@ public class AlbumController {
             @RequestParam(value = "sort",required = false,defaultValue = "byDate")final String sort){
         List<AlbumDto>albumDtos=albumService.getAlbumList(keyword,sort);
         return new ResponseEntity<>(albumDtos,HttpStatus.OK);
+    }
 
+    @PutMapping(value="/{albumId")
+    public ResponseEntity<AlbumDto>updateAlbum(@PathVariable("albumId")final long albumId,
+                                               @RequestBody final AlbumDto albumDto){
+        AlbumDto res=albumService.changeName(albumId,albumDto);
+        return new ResponseEntity<>(res,HttpStatus.OK);
     }
 }
