@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/albums")
@@ -40,4 +41,12 @@ public class AlbumController {
         return new ResponseEntity<>(savedAlbumDto,HttpStatus.OK);
     }
 
+    @GetMapping(value = "")
+    public ResponseEntity<List<AlbumDto>>getAlbumList(
+            @RequestParam(value = "keyword",required = false,defaultValue = "")final String keyword,
+            @RequestParam(value = "sort",required = false,defaultValue = "byDate")final String sort){
+        List<AlbumDto>albumDtos=albumService.getAlbumList(keyword,sort);
+        return new ResponseEntity<>(albumDtos,HttpStatus.OK);
+
+    }
 }
