@@ -103,7 +103,7 @@ class AlbumServiceTest {
         albumRepository.save(album2);
 
         //최신순 정렬, 두번째로 생성한 앨범이 먼저 나와야한다.
-        List<Album> resDate = albumRepository.findByAlbumNameContainingOrderByCreatedAtDesc("aaa");
+        List<Album> resDate = albumRepository.findByAlbumNameContainingOrderByCreateAtDesc("aaa");
         assertEquals("aaab", resDate.get(0).getAlbumName()); // 0번째 Index가 두번째 앨범명 aaab 인지 체크
         assertEquals("aaaa", resDate.get(1).getAlbumName()); // 1번째 Index가 첫번째 앨범명 aaaa 인지 체크
         assertEquals(2, resDate.size()); // aaa 이름을 가진 다른 앨범이 없다는 가정하에, 검색 키워드에 해당하는 앨범 필터링 체크

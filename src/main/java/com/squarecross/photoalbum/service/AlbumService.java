@@ -65,7 +65,7 @@ public class AlbumService {
         if(Objects.equals(sort,"byName")){
             albums=albumRepository.findByAlbumNameContainingOrderByAlbumNameAsc(keyword);
         }else if(Objects.equals(sort,"byDate")){
-            albums=albumRepository.findByAlbumNameContainingOrderByCreatedAtDesc(keyword);
+            albums=albumRepository.findByAlbumNameContainingOrderByCreateAtDesc(keyword);
         }else{
             throw new IllegalArgumentException("알 수 없는 정렬 기준입니다.");
         }
