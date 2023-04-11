@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -54,5 +56,16 @@ public class AlbumService {
                 Constants.PATH_PREFIX+"/photos/original/"+album.getAlbumId()));
         Files.createDirectories(Paths.get(
                 Constants.PATH_PREFIX+"/photos/thumb/"+album.getAlbumId()));
+    }
+
+    public List<AlbumDto> getAlbumList(String keyword,String sort){
+        List<Album>albums;
+        if(Objects.equals(sort,"byname")){
+            albums=albumRepository.findByAlbumNameContainingOrderByAlbumNameAsc(keyword);
+        }else if(Objects.equals(sort,"byDate")){
+            albums=albumRepository.findByAlbumNameContainingOrderByCreatedAtDesc(keyword);
+        }else{
+            throw new IllegalArgumentException("알 수 없는 정렬 기준입니다.")
+        }
     }
 }
