@@ -62,7 +62,7 @@ public class AlbumService {
 
     public List<AlbumDto> getAlbumList(String keyword,String sort){
         List<Album>albums;
-        if(Objects.equals(sort,"byname")){
+        if(Objects.equals(sort,"byName")){
             albums=albumRepository.findByAlbumNameContainingOrderByAlbumNameAsc(keyword);
         }else if(Objects.equals(sort,"byDate")){
             albums=albumRepository.findByAlbumNameContainingOrderByCreatedAtDesc(keyword);
